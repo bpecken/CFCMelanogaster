@@ -5,7 +5,7 @@ How do females make choices about which sperm will fertilize their eggs? In this
 
 ## Data
 
-Our behavioral and  morphological data is composed of 10 data files. 'Courtship.csv' and 'paternity.csv' contain our raw mating and paternity data. This mating data was restructured for our remating analysis in the 'remating.csv' file. Morphology data is summarized in 'morphology.csv'. Some morphology data was restructured for making figures, including 'SR_testis_length.csv' (seminal receptacle length, testis length, sperm length), 'area.csv' (spermatheca area), 'mass.csv' (female and male reproductive tract mass), and 'thorax_length.csv' (female and male thorax lengths). CHC data is included as 'CHC.csv'. Finally, averages for each <i>D. melanogaster</i> line are included in 'means.csv'. See 'metadata.xlsx' for the metadata of each file.
+Our behavioral and  morphological data are composed of 10 data files. 'Courtship.csv' and 'paternity.csv' contain our raw mating and paternity data. This mating data was restructured for our remating analysis in the 'remating.csv' file. Morphology data are summarized in 'morphology.csv'. Some morphology data was restructured for making figures, including 'SR_testis_length.csv' (seminal receptacle length, testis length, sperm length), 'area.csv' (spermatheca area), 'mass.csv' (female and male reproductive tract mass), and 'thorax_length.csv' (female and male thorax lengths). CHC data are included as 'CHC.csv'. Finally, averages for each <i>D. melanogaster</i> line are included in 'means.csv'. See 'metadata.xlsx' for the metadata of each file.
 
 ## Scripts
 

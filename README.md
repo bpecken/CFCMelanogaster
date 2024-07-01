@@ -1,5 +1,4 @@
 # CFCMelanogaster
-Data and code for Peckenpaugh, Yew, &amp; Moyle 2024, "Long-sperm precedence and other cryptic female choices in Drosophila melanogaster"
 
 How do females make choices about which sperm will fertilize their eggs? In this study, we assess four geographically diverse <i>Drosophila melanogaster</i> lines to show that females strongly prefer long sperm—a pattern consistent with female preference for high-fitness males. In addition, we perfumed males to show that females can adjust this general preference based on other factors, including pheromones. Because this adjustment occurs between genotypically identical males, it is entirely female-mediated.
 

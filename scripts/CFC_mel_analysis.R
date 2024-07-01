@@ -359,22 +359,30 @@ remating$CHC <- factor(remating$CHC, levels=c('Treatment', 'Control'))
 #set deviation-coded contrast
 options(contrasts=c(unordered="contr.sum", ordered="contr.poly"))
 
-#glm with female, male, treatment, & female x male effects
+#glm with female, male, and treatment effects
 remated <- remating[,6:5]
 remated <- data.matrix(remated)
 
 m.remating <- glm(remated ~ FemaleLine + SecondMaleLine + CHC, data = remating, family = "binomial")
 summary(m.remating)
 
-#estimate effect sizes
-set.seed(0826)
-remating_es <- resi(m.remating)
-summary(remating_es)
-anova(remating_es)
+#check for over/underdispersion
+check_overdispersion(m.remating)
+#model is underdispersed
 
-#anova
-aov.remating <- Anova(m.remating, type = "3")
-abs(log10(aov.remating$`Pr(>Chisq)`))
+#beta-binomial glm with female, male, and treatment effects to account for underdispersion
+Ry <- remating[,6]
+Rn <- remating[,5]
+
+#comparing model with global dispersion parameter to model with group-specific parameters
+m.remating.beta1 <- betabin(cbind(Ry, Rn) ~ FemaleLine + SecondMaleLine + CHC, ~ 1, data = remating, control = list(maxit = 20000))
+summary(m.remating.beta1)
+
+m.remating.betaF <- betabin(cbind(Ry, Rn) ~ FemaleLine + SecondMaleLine + CHC, ~ FemaleLine, data = remating, control = list(maxit = 20000))
+summary(m.remating.betaF)
+
+anova(m.remating.beta1, m.remating.betaF)
+#no need for group-specific parameters (use m.remating.beta1)
 
 
 ## Figure 6 ##
@@ -457,19 +465,28 @@ P2$treatment <- factor(P2$treatment, levels=c('treatment', 'control'))
 #set deviation-coded contrast
 options(contrasts=c(unordered="contr.sum", ordered="contr.poly"))
 
-#glm witih female, male, treatment, female x male, & female x treatment effects
-m.paternity <- glm(paternity ~ female_line*second_male + treatment + female_line:treatment, data = P2, family = "binomial")
+#glm with female, male, treatment, and all interaction effects
+m.paternity <- glm(paternity ~ female_line*second_male*treatment, data = P2, family = "binomial")
 summary(m.paternity)
 
-#estimate effect sizes
-set.seed(0826)
-paternity_es <- resi(m.paternity)
-summary(paternity_es)
-anova(paternity_es)
+#check for over/underdispersion
+check_overdispersion(m.paternity)
+#model is overdispersed
 
-#anova
-aov.paternity <- Anova(m.paternity, type = "3")
-abs(log10(aov.paternity$`Pr(>Chisq)`))
+#beta-binomial glm with female, male, treatment, and all interaction effects to account for overdispersion
+Py <- P2[,23]
+Pn <- P2[,22]
+
+#comparing model with global dispersion parameter to model with group-specific parameters
+m.paternity.beta1 <- betabin(cbind(Py, Pn) ~ female_line*second_male*treatment, ~ 1, data = P2, control = list(maxit = 20000))
+summary(m.paternity.beta1)
+
+m.paternity.betaF <- betabin(cbind(Py, Pn) ~ female_line*second_male*treatment, ~ female_line, data = P2, control = list(maxit = 30000))
+summary(m.paternity.betaF)
+
+anova(m.paternity.beta1, m.paternity.betaF)
+#no need for group-specific parameters (use m.paternity.beta1)
+
 
 
 ## Figure 7 ##

@@ -280,15 +280,6 @@ options(contrasts=c(unordered="contr.sum", ordered="contr.poly"))
 m.courtship <- lm(courtship_over_time ~ female_line*second_male + treatment, data = courtship)
 summary(m.courtship)
 
-#estimate effect sizes 
-set.seed(0826)
-courtship_es <- resi(m.courtship)
-summary(courtship_es)
-anova(courtship_es)
-
-#anova
-aov.courtship <- Anova(m.courtship, type = "3")
-abs(log10(aov.courtship$`Pr(>F)`))
 
 
 ## Figure 5 ##

@@ -11,7 +11,6 @@ library(car)
 library(stringr)
 library(devtools)
 library(psych)
-library(RESI)
 library(performance)
 library(aod)
 

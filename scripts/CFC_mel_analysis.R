@@ -1,19 +1,9 @@
-library(lme4)
-library(lmerTest)
-library(ggplot2)
 library(ggbiplot)
+library(ggplot2)
 library(gridExtra)
-library(pls)
-library(MASS)
 library(dplyr)
-library(writexl)
-library(car)
-library(stringr)
-library(devtools)
-library(psych)
 library(performance)
 library(aod)
-
 
 ## set pathway for saving figures ##
 path = "~/Desktop"
@@ -169,7 +159,7 @@ print(levels(morph$line))
 #set deviation-coded contrast
 options(contrasts=c(unordered="contr.sum", ordered="contr.poly"))
 
-#lm
+#lms for each trait
 m.thorm <- lm(thorax_length_M_mm ~ line, data = morph)
 summary(m.thorm)
 
@@ -220,6 +210,8 @@ courtship$female_line <- factor(courtship$female_line,
                                 levels = c("B4_California", "A5_Greece", "B7_Malaysia", "A7_Taiwan"),
                                 labels = c("California", "Greece", "Malaysia", "Taiwan"))
 
+
+#plot
 text_courtship <- data.frame(
   label = c("Female line", "Male line"),
   female_line = factor(c("Greece", "California")),
@@ -281,7 +273,6 @@ m.courtship <- lm(courtship_over_time ~ female_line*second_male + treatment, dat
 summary(m.courtship)
 
 
-
 ## Figure 5 ##
 
 # code for Figure 5: premating success
@@ -304,6 +295,7 @@ remating$treatment <- factor(remating$treatment, levels=c("control", "treatment"
 
 remating$remated <- factor(remating$remated, levels=c("Y", "N"))
 
+#plot
 text_remating <- data.frame(
   label = c("Female line", "Male line"),
   female_line = factor(c("Greece", "California")),
@@ -611,17 +603,11 @@ cor.test(mean$courtship_mean, mean$P2_mean, method = "spearman")
 cor.test(mean_con$courtship_mean, mean_con$P2_mean, method = "spearman")
 cor.test(mean_treat$courtship_mean, mean_treat$P2_mean, method = "spearman")
 
-x <- r.test(16, 0.535, 0.353)
-print(x, digits = 4)
-
 #female remating vs. siring success
 cor.test(mean$remating_prop, mean$P2_mean, method = "spearman")
 
 cor.test(mean_con$remating_prop, mean_con$P2_mean, method = "spearman")
 cor.test(mean_treat$remating_prop, mean_treat$P2_mean, method = "spearman")
-
-x <- r.test(16, -0.095, 0.502)
-print(x, digits = 4)
 
 #sperm length vs. siring success
 cor.test(mean$sperm_mean, mean$P2_mean, method = "spearman")
@@ -658,9 +644,6 @@ cor.test(mean$MRT_mean, mean$P2_mean, method = "spearman")
 
 cor.test(mean_con$MRT_mean, mean_con$P2_mean, method = "spearman")
 cor.test(mean_treat$MRT_mean, mean_treat$P2_mean, method = "spearman")
-
-x <- r.test(5, -0.449, -0.679)
-print(x, digits = 4)
 
 #FRT mass vs. siring success
 cor.test(mean$FRT_mean, mean$P2_mean, method = "spearman")
